@@ -1,0 +1,11 @@
+plugins  {
+    id 'java'
+}
+repositories{
+    mavenCentral()
+}
+
+dependencies{
+// Source: https://mvnrepository.com/artifact/org.projectlombok/lombok
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.42'
+}
