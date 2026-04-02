@@ -6,7 +6,10 @@ import ru.dataBase.student.dto.GetStudentDTO;
 import ru.dataBase.student.dto.SaveStudentDTO;
 import ru.dataBase.student.model.Student;
 
+import java.time.LocalDate;
 import java.util.Scanner;
+
+import static ru.dataBase.student.util.DateUtils.formatStringToDate;
 
 public class StudentView {
     private static final StudentController studentController = new StudentController();
@@ -28,17 +31,26 @@ public class StudentView {
         if (choice==1){
             String value = getStudent();
             System.out.println(value);
+            runInterface();
         }
         else if (choice==2){
             boolean isDeleted = deleteStudent();
-            if (isDeleted==true){
+            if (isDeleted){
                 System.out.println("Студент успешно удален");
             }else {
                 System.out.println("Во время удаления произошла ошибка. Перепроверьте корректность введенных данных");
             }
+            runInterface();
         }
         else if (choice==3) {
 
+            boolean isSaved = saveStudent();
+            if (isSaved){
+                System.out.println("Студент успешно создан!");
+            }else {
+                System.out.println("Во время создания произошла ошибка. Перепроверьте корректность введенных данных");
+            }
+            runInterface();
         }
         else{ System.out.println("Введите коректные данные.");
             runInterface();
@@ -96,6 +108,7 @@ public class StudentView {
         System.out.println("Введите дату рождения студента ");
         scanner = new Scanner(System.in);
         String birthDate = scanner.nextLine();
+        LocalDate birthDateFormated = formatStringToDate(birthDate);
 
         System.out.println("Введите место рождения студента ");
         scanner = new Scanner(System.in);
@@ -118,9 +131,11 @@ public class StudentView {
         scanner = new Scanner(System.in);
         String address = scanner.nextLine();
 
-        SaveStudentDTO saveStudentDTO = new SaveStudentDTO(name,lastName,seria,number,birthDate,birthPlace,
-                phoneNumber,eMail,facultyName,address);
+        SaveStudentDTO saveStudentDTO = new SaveStudentDTO(name,lastName,seria,
+                number,birthDateFormated,birthPlace,
+                phoneNumber,eMail,facultyName,
+                address);
 
-        return false;
+        return studentController.saveStudent(saveStudentDTO);
     };
 }

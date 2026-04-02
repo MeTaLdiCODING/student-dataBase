@@ -12,22 +12,22 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaveStudentDTO {
+    private String name;
+
+    private String lastName;
 
     private String seria;
 
     private String number;
 
-    private String name;
+    private LocalDate birthDate;
 
-    private String lastName;
+    private String birthPlace;
 
     private String phoneNumber;
 
     private String eMail;
 
-    private LocalDate birthDate;
-
-    private String birthPlace;
 
     private String FacultyName;
 
