@@ -11,8 +11,6 @@ import lombok.*;
 
 public class Student {
 
-    private Passport passport;
-
     private String phoneNumber;
 
     private String eMail;

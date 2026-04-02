@@ -11,7 +11,7 @@ import java.util.Map;
 public class Database {
 public final static Map<Passport, Student> STUDENTS= new HashMap<>();
 
-private final static List<Faculty> FACULTY =
+public final static List<Faculty> FACULTY =
         List.of(new Faculty("Информационные технологии", "+79931334442","IT_edu@mail.ru" ),
                 new Faculty("Инженерия", "+79932222142","Ing_edu@mail.ru"),
                 new Faculty("Дизайн", "+79982231142","Dis_edu@mail.ru"),
@@ -22,5 +22,6 @@ private final static List<Faculty> FACULTY =
                 new Faculty("Системное администрирование", "+79992335465","Sys_edu@mail.ru"),
                 new Faculty("Педагогика", "+79778901142","Ped_edu@mail.ru")
         );
+
 
 }
