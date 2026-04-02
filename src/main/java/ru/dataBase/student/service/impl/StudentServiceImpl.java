@@ -15,12 +15,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudent(String seria, String Number) {
-        return null;
+        Passport passport = STUDENTS.keySet()
+                .stream()
+                .filter(student -> student.getSeria().equals(seria)&&student.getNumber().equals(number))
+                .findFirst()
+                .orElse(null);
+
+        return STUDENTS.get(passport);
     }
 
     @Override
-    public boolean deleteStudent(String seria, String Number) {
-        return false;
+    public boolean deleteStudent(String seria, String number) {
+       return false;
     }
 
     @Override
