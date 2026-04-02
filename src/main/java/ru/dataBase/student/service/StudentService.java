@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public interface StudentService {
 
-    Student getStudent(String seria, String Number);
+    String getStudent(String seria, String Number);
 
     boolean deleteStudent(String seria, String Number);
 
