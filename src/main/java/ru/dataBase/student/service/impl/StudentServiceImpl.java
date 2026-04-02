@@ -26,7 +26,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean deleteStudent(String seria, String number) {
-       return false;
+       STUDENTS.keySet()
+                .stream()
+                .filter(student -> student.getSeria().equals(seria)&&student.getNumber().equals(number))
+                .forEach(STUDENTS::remove);
+       return true;
     }
 
     @Override
