@@ -105,7 +105,7 @@ public class StudentView {
         scanner = new Scanner(System.in);
         String number = scanner.nextLine();
 
-        System.out.println("Введите дату рождения студента ");
+        System.out.println("Введите дату рождения студента(В формате год-месяц-день) ");
         scanner = new Scanner(System.in);
         String birthDate = scanner.nextLine();
         LocalDate birthDateFormated = formatStringToDate(birthDate);

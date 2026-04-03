@@ -20,17 +20,27 @@ public class StudentServiceImpl implements StudentService {
                 .filter(student -> student.getSeria().equals(seria)&&student.getNumber().equals(number))
                 .findFirst()
                 .orElse(null);
+if(passport==null){return "Студента с такими данными в базе нет !";
+}
 
         return STUDENTS.get(passport).toString();
     }
 
     @Override
     public boolean deleteStudent(String seria, String number) {
-       STUDENTS.keySet()
+      Passport passport = STUDENTS.keySet()
                 .stream()
                 .filter(student -> student.getSeria().equals(seria)&&student.getNumber().equals(number))
-                .forEach(STUDENTS::remove);
-       return true;
+              .findFirst()
+              .orElse(null);
+        if(passport==null) {
+            return false;
+        }else {
+            STUDENTS.remove(passport);
+            return true;
+        }
+
+
     }
 
     @Override

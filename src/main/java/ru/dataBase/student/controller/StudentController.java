@@ -9,12 +9,23 @@ import ru.dataBase.student.service.impl.StudentServiceImpl;
 
 public class StudentController {
     StudentService studentService = new StudentServiceImpl();
-
     public String getStudent(GetStudentDTO studentDTO){
+        if (studentDTO.getSeria().length() !=4){
+            return "Введите корректное значени серии паспорта!";
+        }
+        if (studentDTO.getNumber().length() !=6){
+           return "Введите корректное значени номера паспорта!";
+        }
         return studentService.getStudent(studentDTO.getSeria(), studentDTO.getNumber());
     };
 
     public boolean deleteStudent(DeleteStudentDTO studentDTO){
+        if (studentDTO.getSeria().length() !=4){
+            return false;
+        }
+        if (studentDTO.getNumber().length() !=6){
+            return false;
+        }
         return studentService.deleteStudent(studentDTO.getSeria(), studentDTO.getNumber());
     };
 
