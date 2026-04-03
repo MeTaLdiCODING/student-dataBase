@@ -79,7 +79,7 @@ textsrc/main/java/ru/dataBase/student/
 
 ## Как запустить проект
 
-### 1. Клонирование репозитория
+### 1. Клонирование репозитория,Запуск
 ```bash
   git clone https://github.com/MeTaLdiCODING/student-dataBase.git
   cd student-dataBase
