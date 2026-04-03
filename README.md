@@ -26,27 +26,6 @@
 - Stream API
 - Консольный интерфейс (Scanner)
 
-Структура проекта
-textsrc/main/java/ru/dataBase/student/
-├── Main.java
-├── controller/
-│   └── StudentController.java
-├── service/
-│   ├── StudentService.java
-│   └── impl/
-│       └── StudentServiceImpl.java
-├── view/
-│   └── StudentView.java
-├── dto/
-├── model/
-│   ├── Student.java
-│   ├── Passport.java
-│   └── Faculty.java
-├── database/
-│   └── Database.java
-└── util/
-    └── DateUtils.java 
-
     
 ## Архитектура проекта
 
@@ -60,7 +39,7 @@ textsrc/main/java/ru/dataBase/student/
 - **database** - in-memory база данных
 - **util** - вспомогательные утилиты
 
-### Схема бизнес-сущностей
+##Схема бизнес-сущностей
 
 <img width="619" height="310" alt="image" src="https://github.com/user-attachments/assets/cfa1901a-ea38-434b-bbfa-f1c0d8134b3e" />
 
@@ -68,7 +47,7 @@ textsrc/main/java/ru/dataBase/student/
 > *Student* связан с *Passport* и *Faculty*. Паспортные данные используются как уникальный ключ.
 
 
-Планы по развитию проекта
+##Планы по развитию проекта
 
 Добавить операцию обновления данных студента (Update)
 Сохранение и загрузка данных из JSON-файла
