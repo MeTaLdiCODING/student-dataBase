@@ -10,6 +10,7 @@ import java.util.Map;
 
 import static ru.dataBase.student.database.Database.FACULTY;
 import static ru.dataBase.student.database.Database.STUDENTS;
+import static ru.dataBase.student.util.DateUtils.formatStringToDate;
 
 public class StudentServiceImpl implements StudentService {
 
@@ -58,7 +59,7 @@ if(passport==null){return "Студента с такими данными в б
                 .orElse(null);
 
 
-        Student  student = new Student(phoneNumber,eMail,address,faculty);
+        Student  student = new Student(name,lastName,phoneNumber,eMail,address,faculty);
         STUDENTS.put(passport,student);
         return true;
     }

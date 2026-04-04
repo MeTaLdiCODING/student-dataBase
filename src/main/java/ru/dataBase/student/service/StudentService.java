@@ -6,9 +6,9 @@ import java.time.LocalDate;
 
 public interface StudentService {
 
-    String getStudent(String seria, String Number);
+    String getStudent(String seria, String number);
 
-    boolean deleteStudent(String seria, String Number);
+    boolean deleteStudent(String seria, String number);
 
     boolean saveStudent(String seria, String number, String name, String lastName, String phoneNumber,
                         String eMail, LocalDate birthDate, String birthPlace,

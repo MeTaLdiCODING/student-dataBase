@@ -11,6 +11,10 @@ import lombok.*;
 
 public class Student {
 
+    private String name;
+
+    private String lastName;
+
     private String phoneNumber;
 
     private String eMail;

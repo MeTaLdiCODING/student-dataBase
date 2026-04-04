@@ -14,11 +14,9 @@ public class DateUtils {
             return LocalDate.parse(date,formatter);
 
         }catch (DateTimeParseException ex){
-            System.out.println("Проверьте корректность введенных данных. Обратите внимание на формат ввода!");
-        }finally {
-            runInterface();
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
+            return null;
         }
-        return null;
     };
 
 }

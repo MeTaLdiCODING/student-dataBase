@@ -4,139 +4,151 @@ import ru.dataBase.student.controller.StudentController;
 import ru.dataBase.student.dto.DeleteStudentDTO;
 import ru.dataBase.student.dto.GetStudentDTO;
 import ru.dataBase.student.dto.SaveStudentDTO;
-import ru.dataBase.student.model.Student;
+import ru.dataBase.student.util.DateUtils;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import static ru.dataBase.student.util.DateUtils.formatStringToDate;
 
+
+//Изменить то стринг для гет сдудент и поменя сообщени о ошибке при форматировании даты
 public class StudentView {
-    private static final StudentController studentController = new StudentController();
-    public static void runInterface(){
+
+    private static final StudentController controller = new StudentController();
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void runInterface() {
+        while (true) {
+            printMenu();
+
+            try {
+                int choice = Integer.parseInt(scanner.nextLine().trim());
+
+                switch (choice) {
+                    case 1 -> findStudent();
+                    case 2 -> deleteStudent();
+                    case 3 -> addStudent();
+                    case 4 -> {
+                        System.out.println("Программа завершена. До свидания!");
+                        return; // выход из метода и завершение программы
+                    }
+                    default -> System.out.println("Ошибка: Введите число от 1 до 4.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: Введите корректное число!");
+            }
+
+            System.out.println();
+        }
+    }
+
+    private static void printMenu() {
         System.out.println("-------------------------------------------------------");
-        System.out.println("1. Найти студента");
+        System.out.println("1. Найти студента по паспорту");
         System.out.println("2. Удалить студента");
-        System.out.println("3. Добавить студента");
+        System.out.println("3. Добавить нового студента");
+        System.out.println("4. Завершить работу");
+        System.out.println("-------------------------------------------------------");
+        System.out.print("Выберите действие (1-4): ");
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        int choice = 0;
+
+    //ОЖИДАНИЕ ENTER
+    private static void waitForEnter() {
+        System.out.print("\nНажмите Enter для возврата в меню...");
+        scanner.nextLine();   // просто ждём нажатия Enter
+    }
+    //ПОИСК СТУДЕНТА
+    private static void findStudent() {
+        System.out.print("Введите серию паспорта (4 символа): ");
+        String seria = scanner.nextLine().trim();
+
+        System.out.print("Введите номер паспорта (6 символов): ");
+        String number = scanner.nextLine().trim();
+
+        GetStudentDTO dto = new GetStudentDTO(seria, number);
+        String result = controller.getStudent(dto);
+
+        System.out.println("\n" + result);
+
+        waitForEnter();
+    }
+
+    //УДАЛЕНИЕ СТУДЕНТА
+    private static void deleteStudent() {
+        System.out.print("Введите серию паспорта (4 символа): ");
+        String seria = scanner.nextLine().trim();
+
+        System.out.print("Введите номер паспорта (6 символов): ");
+        String number = scanner.nextLine().trim();
+
+        DeleteStudentDTO dto = new DeleteStudentDTO(seria, number);
+        boolean deleted = controller.deleteStudent(dto);
+
+        if (deleted) {
+            System.out.println("Студент успешно удалён!");
+        } else {
+            System.out.println("Не удалось удалить. Проверьте введённые данные.");
+        }
+        waitForEnter();
+    }
+
+    //ДОБАВЛЕНИЕ СТУДЕНТА
+    private static void addStudent() {
         try {
-        choice= scanner.nextInt();
-        }catch (NumberFormatException ex){
-            System.out.println("Введите коректные данные.");
-            runInterface();
-        }
+            System.out.print("Введите имя: ");
+            String name = scanner.nextLine().trim();
 
-        if (choice==1){
-            String value = getStudent();
-            System.out.println(value);
-            runInterface();
-        }
-        else if (choice==2){
-            boolean isDeleted = deleteStudent();
-            if (isDeleted){
-                System.out.println("Студент успешно удален");
-            }else {
-                System.out.println("Во время удаления произошла ошибка. Перепроверьте корректность введенных данных");
+            System.out.print("Введите фамилию: ");
+            String lastName = scanner.nextLine().trim();
+
+            System.out.print("Введите серию паспорта (4 символа): ");
+            String seria = scanner.nextLine().trim();
+
+            System.out.print("Введите номер паспорта (6 символов): ");
+            String number = scanner.nextLine().trim();
+
+            System.out.print("Введите дату рождения (yyyy-MM-dd): ");
+            String dateStr = scanner.nextLine().trim();
+            LocalDate birthDate = DateUtils.formatStringToDate(dateStr);
+
+            if (birthDate == null) {
+                System.out.println("Неверный формат даты. Операция отменена.");
+                return;
             }
-            runInterface();
-        }
-        else if (choice==3) {
 
-            boolean isSaved = saveStudent();
-            if (isSaved){
-                System.out.println("Студент успешно создан!");
-            }else {
-                System.out.println("Во время создания произошла ошибка. Перепроверьте корректность введенных данных");
+            System.out.print("Введите место рождения: ");
+            String birthPlace = scanner.nextLine().trim();
+
+            System.out.print("Введите номер телефона: ");
+            String phoneNumber = scanner.nextLine().trim();
+
+            System.out.print("Введите email: ");
+            String email = scanner.nextLine().trim();
+
+            System.out.print("Введите название факультета: ");
+            String facultyName = scanner.nextLine().trim();
+
+            System.out.print("Введите адрес: ");
+            String address = scanner.nextLine().trim();
+
+            SaveStudentDTO dto = new SaveStudentDTO(
+                    name, lastName, seria, number, birthDate,
+                    birthPlace, phoneNumber, email, facultyName, address
+            );
+
+            boolean saved = controller.saveStudent(dto);
+
+            if (saved) {
+                System.out.println("Студент успешно добавлен в базу!");
+            } else {
+                System.out.println("Не удалось добавить студента. Проверьте корректность данных.");
             }
-            runInterface();
+
+        } catch (NumberFormatException e) {
+            System.out.println("Произошла ошибка при добавлении студента.");
         }
-        else{ System.out.println("Введите коректные данные.");
-            runInterface();
-        }
 
-
-    };
-
-    private static String getStudent(){
-
-        System.out.println("Введите серию паспорта студента ");
-        Scanner scanner = new Scanner(System.in);
-        String seria = scanner.nextLine();
-
-        System.out.println("Введите номер паспорта студента ");
-        scanner = new Scanner(System.in);
-        String number = scanner.nextLine();
-        GetStudentDTO getStudentDTO = new GetStudentDTO(seria, number);
-        return studentController.getStudent(getStudentDTO);
-
+        waitForEnter();
     }
-
-    private static boolean deleteStudent(){
-
-        System.out.println("Введите серию паспорта студента ");
-        Scanner scanner = new Scanner(System.in);
-        String seria = scanner.nextLine();
-
-        System.out.println("Введите номер паспорта студента ");
-        scanner = new Scanner(System.in);
-        String number = scanner.nextLine();
-        DeleteStudentDTO deleteStudentDTO = new DeleteStudentDTO(seria, number);
-        return studentController.deleteStudent(deleteStudentDTO);
-
-    }
-
-    private static boolean saveStudent(){
-
-        System.out.println("Введите имя студента ");
-        Scanner scanner = new Scanner(System.in);
-        String name = scanner.nextLine();
-
-        System.out.println("Введите фамилию студента ");
-        scanner = new Scanner(System.in);
-        String lastName = scanner.nextLine();
-
-        System.out.println("Введите серию паспорта студента ");
-        scanner = new Scanner(System.in);
-        String seria = scanner.nextLine();
-
-        System.out.println("Введите номер паспорта студента ");
-        scanner = new Scanner(System.in);
-        String number = scanner.nextLine();
-
-    System.out.println("Введите дату рождения студента(В формате год-месяц-день) ");
-    scanner = new Scanner(System.in);
-    String birthDate = scanner.nextLine();
-    LocalDate birthDateFormated = formatStringToDate(birthDate);
-
-        System.out.println("Введите место рождения студента ");
-        scanner = new Scanner(System.in);
-        String birthPlace = scanner.nextLine();
-
-        System.out.println("Введите номер телефона студента ");
-        scanner = new Scanner(System.in);
-        String phoneNumber = scanner.nextLine();
-
-        System.out.println("Введите eMail студента ");
-        scanner = new Scanner(System.in);
-        String eMail = scanner.nextLine();
-
-
-        System.out.println("Введите название факультета студента ");
-        scanner = new Scanner(System.in);
-        String facultyName = scanner.nextLine();
-
-        System.out.println("Введите адрес студента ");
-        scanner = new Scanner(System.in);
-        String address = scanner.nextLine();
-
-        SaveStudentDTO saveStudentDTO = new SaveStudentDTO(name,lastName,seria,
-                number,birthDateFormated,birthPlace,
-                phoneNumber,eMail,facultyName,
-                address);
-
-        return studentController.saveStudent(saveStudentDTO);
-    };
 }

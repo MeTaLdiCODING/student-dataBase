@@ -5,12 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class DeleteStudentDTO {
+public record DeleteStudentDTO(String seria, String number) {
 
-    private String seria;
-    private String number;
+
 }

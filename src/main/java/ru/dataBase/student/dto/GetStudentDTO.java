@@ -5,14 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class GetStudentDTO {
 
-    private String seria;
-    private String number;
+public record GetStudentDTO (String seria,String number){
+
+
 
 
 }

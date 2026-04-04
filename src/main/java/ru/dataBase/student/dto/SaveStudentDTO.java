@@ -7,30 +7,12 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class SaveStudentDTO {
-    private String name;
 
-    private String lastName;
-
-    private String seria;
-
-    private String number;
-
-    private LocalDate birthDate;
-
-    private String birthPlace;
-
-    private String phoneNumber;
-
-    private String eMail;
+public record SaveStudentDTO(String name, String lastName, String seria, String number,
+                             LocalDate birthDate, String birthPlace, String phoneNumber,
+                             String eMail, String FacultyName, String address) {
 
 
-    private String FacultyName;
 
-    private String address;
 
 }
