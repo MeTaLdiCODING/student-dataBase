@@ -1,12 +1,20 @@
-plugins  {
+plugins {
     id 'java'
+    id 'application'
 }
-repositories{
+
+group = 'ru.dataBase'
+version = '1.0-SNAPSHOT'
+
+repositories {
     mavenCentral()
 }
 
-dependencies{
-// Source: https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly("org.projectlombok:lombok:1.18.44")
-    annotationProcessor("org.projectlombok:lombok:1.18.44")
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.44'
+    annotationProcessor 'org.projectlombok:lombok:1.18.44'
+}
+
+application {
+    mainClass = 'ru.dataBase.student.Main'
 }

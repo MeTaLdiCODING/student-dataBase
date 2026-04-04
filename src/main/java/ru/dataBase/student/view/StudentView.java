@@ -7,6 +7,7 @@ import ru.dataBase.student.dto.SaveStudentDTO;
 import ru.dataBase.student.model.Student;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import static ru.dataBase.student.util.DateUtils.formatStringToDate;
@@ -105,10 +106,10 @@ public class StudentView {
         scanner = new Scanner(System.in);
         String number = scanner.nextLine();
 
-        System.out.println("Введите дату рождения студента(В формате год-месяц-день) ");
-        scanner = new Scanner(System.in);
-        String birthDate = scanner.nextLine();
-        LocalDate birthDateFormated = formatStringToDate(birthDate);
+    System.out.println("Введите дату рождения студента(В формате год-месяц-день) ");
+    scanner = new Scanner(System.in);
+    String birthDate = scanner.nextLine();
+    LocalDate birthDateFormated = formatStringToDate(birthDate);
 
         System.out.println("Введите место рождения студента ");
         scanner = new Scanner(System.in);
